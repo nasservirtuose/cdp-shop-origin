@@ -10,10 +10,10 @@ use Illuminate\Support\Str;
 class ShopProduct extends Model
 {
     protected $attributes = [
-        'commerce_mode' => CommerceMode::DIRECT_SHOP->value,
+        'commerce_mode'            => 'DIRECT_SHOP',
         'affiliate_reward_enabled' => false,
-        'is_active' => true,
-        'is_public' => false,
+        'is_active'                => true,
+        'is_public'                => false,
     ];
 
     protected $fillable = [

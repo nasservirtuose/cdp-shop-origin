@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PlanipetsAuthController;
 use App\Http\Controllers\Pro\ProSelectionController;
 use App\Http\Controllers\Pro\ProCatalogController;
+use App\Http\Controllers\Pro\ProPackController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,5 +28,12 @@ Route::prefix('pro')->middleware('pro.auth')->group(function () {
     // Catalogue
     Route::get('/catalog', [ProCatalogController::class, 'index'])->name('pro.catalog.index');
     Route::get('/catalog/{product}', [ProCatalogController::class, 'show'])->name('pro.catalog.show');
+
+    // Packs
+    Route::post('/packs', [ProPackController::class, 'store'])->name('pro.packs.store');
+    Route::get('/packs/{pack}', [ProPackController::class, 'show'])->name('pro.packs.show');
+    Route::post('/packs/{pack}/items', [ProPackController::class, 'addItem'])->name('pro.packs.items.add');
+    Route::post('/packs/{pack}/items/remove', [ProPackController::class, 'removeItem'])->name('pro.packs.items.remove');
+    Route::delete('/packs/{pack}', [ProPackController::class, 'destroy'])->name('pro.packs.destroy');
 });
 

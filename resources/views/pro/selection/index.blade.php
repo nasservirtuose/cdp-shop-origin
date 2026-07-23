@@ -77,23 +77,31 @@
 
     <!-- TAB: Packs -->
     <div id="tab-packs" class="tab-content hidden">
+        <div class="bg-white border rounded-lg p-4 mb-6">
+            <h3 class="font-bold mb-3">Créer un nouveau pack</h3>
+            <form action="{{ route('pro.packs.store') }}" method="POST" class="flex flex-col md:flex-row gap-3">
+                @csrf
+                <input type="text" name="name" placeholder="Nom du pack" required class="flex-1 border rounded px-3 py-2">
+                <input type="text" name="description" placeholder="Description (optionnel)" class="flex-1 border rounded px-3 py-2">
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">Créer</button>
+            </form>
+        </div>
+
         @if ($packs->isEmpty())
-            <p class="text-gray-500">Aucun pack créé. Créez un pack pour regrouper plusieurs produits.</p>
+            <p class="text-gray-500">Aucun pack créé.</p>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @foreach ($packs as $pack)
-                    <div class="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition">
+                    <div class="border rounded-lg p-4 bg-white shadow-sm">
                         <h3 class="font-bold text-lg mb-1">📦 {{ $pack->name }}</h3>
-                        <p class="text-gray-600 text-sm mb-3">{{ $pack->description ?? '(sans description)' }}</p>
-                        <p class="text-sm font-semibold mb-3">
-                            <strong>{{ $pack->items->count() }}</strong> produit(s) | Statut: <span class="badge">{{ $pack->status }}</span>
-                        </p>
+                        <p class="text-gray-600 text-sm mb-2">{{ $pack->description ?? '(sans description)' }}</p>
+                        <p class="text-sm mb-3"><strong>{{ $pack->items->count() }}</strong> produit(s) · {{ $pack->status->value }}</p>
                         <ul class="text-sm text-gray-700 mb-4">
                             @foreach ($pack->items as $item)
-                                <li class="mb-1">• {{ $item->product->name }} (×{{ $item->quantity }})</li>
+                                <li>• {{ $item->product->name ?? '?' }} (×{{ $item->quantity }})</li>
                             @endforeach
                         </ul>
-                        <a href="#" class="text-blue-500 hover:underline text-sm">Éditer pack</a>
+                        <a href="{{ route('pro.packs.show', $pack) }}" class="text-blue-500 hover:underline text-sm">Gérer ce pack →</a>
                     </div>
                 @endforeach
             </div>

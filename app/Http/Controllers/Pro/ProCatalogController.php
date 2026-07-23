@@ -7,6 +7,7 @@ use App\Models\ShopProduct;
 use App\Models\ShopCategory;
 use App\Services\ProProductSelectionService;
 use App\Services\ProProductFavoriteService;
+use App\Services\OriginTokenService;
 use App\Support\CurrentPro;
 
 class ProCatalogController extends Controller
@@ -14,11 +15,9 @@ class ProCatalogController extends Controller
     public function __construct(
         private ProProductSelectionService $selectionService,
         private ProProductFavoriteService $favoriteService,
+        private OriginTokenService $originTokenService,
     ) {}
 
-    /**
-     * Affiche le catalogue complet (tous les produits actifs en M1).
-     */
     public function index()
     {
         $proId = CurrentPro::id();
@@ -30,13 +29,8 @@ class ProCatalogController extends Controller
 
         $allProducts = ShopProduct::where('is_active', true)->get();
 
-        // Charger les états du pro (what's selected, what's favorite)
-        $selectedIds = $this->selectionService->list($proId)
-            ->pluck('product_id')
-            ->toArray();
-        $favoriteIds = $this->favoriteService->list($proId)
-            ->pluck('product_id')
-            ->toArray();
+        $selectedIds = $this->selectionService->list($proId)->pluck('product_id')->toArray();
+        $favoriteIds = $this->favoriteService->list($proId)->pluck('product_id')->toArray();
 
         return view('pro.catalog.index', [
             'categories'  => $categories,
@@ -46,18 +40,15 @@ class ProCatalogController extends Controller
         ]);
     }
 
-    /**
-     * Affiche une fiche produit.
-     * (Plus tard en M2, ce sera une page publique.)
-     */
     public function show(ShopProduct $product)
     {
         $proId = CurrentPro::id();
 
         return view('pro.catalog.show', [
-            'product'   => $product,
+            'product'    => $product,
             'isSelected' => $this->selectionService->isSelected($proId, $product->id),
             'isFavorite' => $this->favoriteService->isFavorite($proId, $product->id),
+            'shareUrl'   => $this->originTokenService->buildProductUrl($proId, $product->slug),
         ]);
     }
 }

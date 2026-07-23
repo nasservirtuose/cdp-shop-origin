@@ -78,6 +78,31 @@
                     </form>
                 @endif
             </div>
+
+            <!-- Lien de partage Origin du pro -->
+            <div class="mt-6 bg-white border rounded-lg p-4">
+                <h2 class="font-bold text-lg mb-2">📢 Partager ce produit à vos clients</h2>
+                <p class="text-gray-500 text-sm mb-3">Votre lien personnel — les ventes issues de ce lien vous seront attribuées.</p>
+                <div class="flex gap-2 mb-3">
+                    <input type="text" id="share-url" value="{{ $shareUrl }}" readonly
+                           class="flex-1 border rounded px-3 py-2 text-sm bg-gray-50">
+                    <button onclick="copyShareUrl()" class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600">Copier</button>
+                </div>
+                <div class="flex gap-2">
+                    <a href="https://wa.me/?text={{ urlencode('Découvrez ce produit : ' . $shareUrl) }}" target="_blank"
+                       class="flex-1 text-center bg-green-500 text-white py-2 rounded text-sm hover:bg-green-600">WhatsApp</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}" target="_blank"
+                       class="flex-1 text-center bg-blue-700 text-white py-2 rounded text-sm hover:bg-blue-800">Facebook</a>
+                </div>
+            </div>
+
+            <script>
+            function copyShareUrl() {
+                const input = document.getElementById('share-url');
+                input.select();
+                navigator.clipboard.writeText(input.value).then(() => alert('Lien copié !'));
+            }
+            </script>
         </div>
     </div>
 </div>

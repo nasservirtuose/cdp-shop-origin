@@ -38,6 +38,7 @@ return [
     'planipets' => [
         'jwt_secret'    => env('PLANIPETS_JWT_SECRET'),
         'dashboard_url' => env('PLANIPETS_DASHBOARD_URL', 'https://planipets.com'),
+        'public_url'    => env('PLANIPETS_PUBLIC_URL', 'https://planipets.com'),
     ],
 
 ];

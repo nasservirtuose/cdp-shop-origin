@@ -47,6 +47,17 @@ class OriginTokenService
         return OriginPublicToken::where('token', $token)->value('pro_id');
     }
 
+    /**
+     * Construit le lien de partage public d'un produit pour un pro.
+     * Format : {public_url}/produit/{slug}{token}  (le token est collé au slug).
+     */
+    public function buildProductUrl(int $proId, string $productSlug): string
+    {
+        $token = $this->getActiveToken($proId)->token;
+        $base = rtrim(config('services.planipets.public_url'), '/');
+        return $base . '/produit/' . $productSlug . $token;
+    }
+
     /** Vérifie le format a24f + 10 caractères [a-z0-9]. */
     public function isValidTokenFormat(string $token): bool
     {

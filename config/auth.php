@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pro' => [
+            'driver' => 'session',
+            'provider' => 'shop_pros',
+        ],
     ],
 
     /*
@@ -65,6 +69,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+        'shop_pros' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ShopPro::class,
         ],
 
         // 'users' => [

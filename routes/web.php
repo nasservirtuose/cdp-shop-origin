@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PlanipetsAuthController;
+use App\Http\Controllers\Pro\ProSelectionController;
+use App\Http\Controllers\Pro\ProCatalogController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,9 +15,17 @@ Route::get('/pro/login', [PlanipetsAuthController::class, 'showLoginPage'])->nam
 
 Route::prefix('pro')->middleware('pro.auth')->group(function () {
     Route::post('/logout', [PlanipetsAuthController::class, 'logout'])->name('pro.logout');
-    Route::get('/dashboard', function () {
-        $pro = \App\Support\CurrentPro::pro();
-        return response('SHOP OK — connecté : ' . $pro->displayName() . ' (pro_id=' . $pro->proId() . ')');
-    })->name('pro.dashboard');
+    Route::get('/dashboard', [ProSelectionController::class, 'index'])->name('pro.dashboard');
+
+    // Ma sélection / Favoris / Packs
+    Route::get('/selection', [ProSelectionController::class, 'index'])->name('pro.selection.index');
+    Route::post('/selection/add', [ProSelectionController::class, 'addSelection'])->name('pro.selection.add');
+    Route::post('/selection/remove', [ProSelectionController::class, 'removeSelection'])->name('pro.selection.remove');
+    Route::post('/favorites/add', [ProSelectionController::class, 'addFavorite'])->name('pro.favorite.add');
+    Route::post('/favorites/remove', [ProSelectionController::class, 'removeFavorite'])->name('pro.favorite.remove');
+
+    // Catalogue
+    Route::get('/catalog', [ProCatalogController::class, 'index'])->name('pro.catalog.index');
+    Route::get('/catalog/{product}', [ProCatalogController::class, 'show'])->name('pro.catalog.show');
 });
 

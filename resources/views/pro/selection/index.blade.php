@@ -1,53 +1,84 @@
-@extends('layouts.app')
-@section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6">Ma sélection</h1>
-
-    <div class="flex gap-4 mb-6 border-b">
-        <button class="tab-btn active px-4 py-2 border-b-2 border-blue-500" data-tab="selections">
-            Ma sélection ({{ $selections->count() }})
-        </button>
-        <button class="tab-btn px-4 py-2 border-b-2 border-transparent hover:border-gray-300" data-tab="favorites">
-            Mes favoris ({{ $favorites->count() }})
-        </button>
-        <button class="tab-btn px-4 py-2 border-b-2 border-transparent hover:border-gray-300" data-tab="packs">
-            Mes packs ({{ $packs->count() }})
-        </button>
+@extends('layouts.app')@section('title','Ma sélection')@section('content')
+<div class="page">
+    <div class="eyebrow">Espace pro</div>
+    <div class="h1">Ma sélection</div>
+    @if (session('success'))<div class="flash flash-ok" style="margin-top:20px">{{ session('success') }}</div>@endif    @if (session('error'))<div class="flash flash-err" style="margin-top:20px">{{ session('error') }}</div>@endif
+    <div class="tabs">
+        <button class="tab active" data-tab="sel">Ma sélection <span class="n">{{ $selections->count() }}</span></button>
+        <button class="tab" data-tab="fav">Mes favoris <span class="n">{{ $favorites->count() }}</span></button>
+        <button class="tab" data-tab="pk">Mes packs <span class="n">{{ $packs->count() }}</span></button>
     </div>
-
-    <!-- TAB: Sélection -->
-    <div id="tab-selections" class="tab-content">
+    <div id="tab-sel" class="tabc">
         @if ($selections->isEmpty())
-            <p class="text-gray-500">Aucun produit sélectionné. <a href="{{ route('pro.catalog.index') }}" class="text-blue-500 hover:underline">Parcourir le catalogue</a>.</p>
+            <p class="empty">Aucun produit sélectionné. <a href="{{ route('pro.catalog.index') }}">Parcourir le catalogue</a>.</p>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($selections as $selection)
-                    @if ($selection->product)
-                        <div class="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition">
-                            <h3 class="font-bold text-lg mb-2">{{ $selection->product->name }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ $selection->product->short_description }}</p>
-                            <div class="flex gap-2">
-                                <a href="{{ route('pro.catalog.show', $selection->product) }}" class="flex-1 text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                                    Voir
-                                </a>
-                                <form action="{{ route('pro.selection.remove') }}" method="POST" class="flex-1">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $selection->product_id }}">
-                                    <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
-                                        Retirer
-                                    </button>
-                                </form>
+            <div class="grid">
+                @foreach ($selections as $s) @if ($s->product)
+                    <article class="card">
+                        <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+                        <div class="cbody">
+                            <div class="ctitle">{{ $s->product->name }}</div>
+                            <p class="desc">{{ $s->product->short_description }}</p>
+                            <div class="actions">
+                                <a href="{{ route('pro.catalog.show', $s->product) }}" class="btn btn-ghost grow">Voir</a>
+                                <form action="{{ route('pro.selection.remove') }}" method="POST">@csrf<input type="hidden" name="product_id" value="{{ $s->product_id }}"><button class="btn btn-ghost">Retirer</button></form>
                             </div>
                         </div>
-                    @endif
+                    </article>
+                @endif @endforeach
+            </div>
+        @endif
+    </div>
+    <div id="tab-fav" class="tabc" style="display:none">
+        @if ($favorites->isEmpty())
+            <p class="empty">Aucun favori pour le moment.</p>
+        @else
+            <div class="grid">
+                @foreach ($favorites as $f) @if ($f->product)
+                    <article class="card">
+                        <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+                        <div class="cbody">
+                            <div class="ctitle">{{ $f->product->name }}</div>
+                            <p class="desc">{{ $f->product->short_description }}</p>
+                            <div class="actions">
+                                <a href="{{ route('pro.catalog.show', $f->product) }}" class="btn btn-ghost grow">Voir</a>
+                                <form action="{{ route('pro.favorite.remove') }}" method="POST">@csrf<input type="hidden" name="product_id" value="{{ $f->product_id }}"><button class="btn btn-ghost">Retirer</button></form>
+                            </div>
+                        </div>
+                    </article>
+                @endif @endforeach
+            </div>
+        @endif
+    </div>
+    <div id="tab-pk" class="tabc" style="display:none">
+        <div class="panel" style="margin-bottom:22px">
+            <div style="font-weight:700;margin-bottom:12px">Créer un nouveau pack</div>
+            <form action="{{ route('pro.packs.store') }}" method="POST" class="form-row">
+                @csrf
+                <input class="field" type="text" name="name" placeholder="Nom du pack" required>
+                <input class="field" type="text" name="description" placeholder="Description (optionnel)">
+                <button class="btn btn-primary">Créer</button>
+            </form>
+        </div>
+        @if ($packs->isEmpty())
+            <p class="empty">Aucun pack créé.</p>
+        @else
+            <div class="grid">
+                @foreach ($packs as $pack)
+                    <article class="card"><div class="cbody">
+                        <span class="pill">{{ $pack->status->value }}</span>
+                        <div class="ctitle" style="margin-top:10px">{{ $pack->name }}</div>
+                        <p class="desc">{{ $pack->description ?? '—' }}</p>
+                        <p class="desc" style="margin-top:8px">{{ $pack->items->count() }} produit{{ $pack->items->count() > 1 ? 's' : '' }}</p>
+                        <div class="actions"><a href="{{ route('pro.packs.show', $pack) }}" class="btn btn-primary btn-block">Gérer ce pack</a></div>
+                    </div></article>
                 @endforeach
             </div>
         @endif
     </div>
-
-    <!-- TAB: Favoris -->
-    <div id="tab-favorites" class="tab-content hidden">
-        @if ($favorites->isEmpty())
+</div>
+<script>document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',function(){    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));    this.classList.add('active');    document.querySelectorAll('.tabc').forEach(c=>c.style.display='none');    document.getElementById('tab-'+this.dataset.tab).style.display='block';}));</script>
+@endsection
             <p class="text-gray-500">Aucun favori. Marquez des produits en parcourant le catalogue.</p>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

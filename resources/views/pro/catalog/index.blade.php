@@ -1,71 +1,47 @@
-@extends('layouts.app')
-@section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-2">Catalogue des produits</h1>
-    <p class="text-gray-600 mb-8">Parcourez et sélectionnez les produits à recommander à vos clients.</p>
+@extends('layouts.app')@section('title','Catalogue')@section('content')
+<div class="page">
+    <div class="eyebrow">Catalogue</div>
+    <div class="h1">Les produits que vous recommandez</div>
+    <p class="lede">Ajoutez des produits à votre sélection pour les partager à vos clients et composer des packs.</p>
 
     @foreach ($categories as $category)
         @if ($category->products->count() > 0)
-            <div class="mb-12">
-                <h2 class="text-2xl font-semibold mb-6 text-gray-800">{{ $category->name }}</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    @foreach ($category->products as $product)
-                        <div class="border rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-lg transition">
-                            @if ($product->main_image)
-                                <img src="{{ asset('storage/' . $product->main_image) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover bg-gray-200">
-                            @else
-                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-400">
-                                    Pas d'image
-                                </div>
-                            @endif
-
-                            <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2 line-clamp-2">{{ $product->name }}</h3>
-                                <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ $product->short_description }}</p>
-
-                                <!-- Emplacement fourchette Rex (vide en M1) -->
-                                <div class="bg-gray-50 p-2 rounded mb-4 text-center text-gray-400 text-xs h-6 flex items-center justify-center">
-                                    Fourchette récompense (M3)
-                                </div>
-
-                                <div class="flex gap-2 mb-3">
-                                    <a href="{{ route('pro.catalog.show', $product) }}" class="flex-1 text-center bg-blue-500 text-white py-2 rounded text-sm hover:bg-blue-600">
-                                        Voir
-                                    </a>
-                                </div>
-
-                                <div class="flex gap-2">
-                                    <form action="{{ route('pro.selection.add') }}" method="POST" class="flex-1">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded text-sm hover:bg-green-600
-                                            {{ in_array($product->id, $selectedIds) ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                            {{ in_array($product->id, $selectedIds) ? 'disabled' : '' }}>
-                                            {{ in_array($product->id, $selectedIds) ? '✓ Sélectionné' : 'Ajouter' }}
-                                        </button>
+            <div class="sec-head">
+                <span class="h2">{{ $category->name }}</span>
+                <span class="count">{{ $category->products->count() }} produit{{ $category->products->count() > 1 ? 's' : '' }}</span>
+                <span class="rule"></span>
+            </div>
+            <div class="grid">
+                @foreach ($category->products as $product)
+                    @php $sel = in_array($product->id, $selectedIds); $fav = in_array($product->id, $favoriteIds); @endphp
+                    <article class="card">
+                        <div class="thumb">
+                            <form action="{{ $fav ? route('pro.favorite.remove') : route('pro.favorite.add') }}" method="POST">
+                                @csrf<input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button class="fav {{ $fav ? 'on' : '' }}" aria-label="Favori"><svg viewBox="0 0 24 24" fill="{{ $fav ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7.5-4.9-9.7-9.3C.9 8.5 2.3 5.5 5.3 5.5c1.9 0 3.1 1 3.9 2.2h.1c.8-1.2 2-2.2 3.9-2.2 3 0 4.4 3 3 6.2C19.5 16.1 12 21 12 21z"/></svg></button>
+                            </form>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                        </div>
+                        <div class="cbody">
+                            <span class="chip">{{ $category->name }}</span>
+                            <div class="ctitle">{{ $product->name }}</div>
+                            <p class="desc">{{ $product->short_description }}</p>
+                            <div class="actions">
+                                @if ($sel)
+                                    <span class="btn is-on grow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>Sélectionné</span>
+                                @else
+                                    <form action="{{ route('pro.selection.add') }}" method="POST" class="grow" style="display:flex">
+                                        @csrf<input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button class="btn btn-primary btn-block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Ajouter</button>
                                     </form>
-                                    <form action="{{ route('pro.favorite.add') }}" method="POST" class="flex-1">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded text-sm hover:bg-yellow-600
-                                            {{ in_array($product->id, $favoriteIds) ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                            {{ in_array($product->id, $favoriteIds) ? 'disabled' : '' }}>
-                                            {{ in_array($product->id, $favoriteIds) ? '⭐ Favori' : '☆ Favori' }}
-                                        </button>
-                                    </form>
-                                </div>
+                                @endif
+                                <a href="{{ route('pro.catalog.show', $product) }}" class="btn btn-ghost">Voir</a>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                    </article>
+                @endforeach
             </div>
         @endif
     @endforeach
-
-    <div class="mt-8">
-        <a href="{{ route('pro.selection.index') }}" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600">
-            ← Retour à Ma sélection
-        </a>
-    </div>
 </div>
 @endsection

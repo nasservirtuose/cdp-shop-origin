@@ -1,109 +1,48 @@
-@extends('layouts.app')
-@section('content')
-<div class="container mx-auto px-4 py-8">
-    <a href="{{ route('pro.catalog.index') }}" class="text-blue-500 hover:underline mb-6 inline-block">← Retour au catalogue</a>
+@extends('layouts.app')@section('title', $product->name)@section('content')
+<div class="page">
+    <div class="detail">
+        <div class="detail-grid">
+            <div class="d-media">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            </div>
+            <div class="d-body">
+                <a href="{{ route('pro.catalog.index') }}" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>Retour au catalogue</a>
+                @if ($product->category)<span class="chip">{{ $product->category->name }}</span>@endif
+                <div class="title">{{ $product->name }}</div>
+                <p class="d-desc">{{ $product->description ?? $product->short_description }}</p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Image -->
-        <div>
-            @if ($product->main_image)
-                <img src="{{ asset('storage/' . $product->main_image) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg">
-            @else
-                <div class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">
-                    Pas d'image disponible
+                <div class="d-cta">
+                    @if ($isSelected)
+                        <form action="{{ route('pro.selection.remove') }}" method="POST" style="flex:1;display:flex">
+                            @csrf<input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button class="btn btn-ghost btn-block">Retirer de ma sélection</button>
+                        </form>
+                    @else
+                        <form action="{{ route('pro.selection.add') }}" method="POST" style="flex:1;display:flex">
+                            @csrf<input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button class="btn btn-primary btn-block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Ajouter à ma sélection</button>
+                        </form>
+                    @endif
+                    <form action="{{ $isFavorite ? route('pro.favorite.remove') : route('pro.favorite.add') }}" method="POST">
+                        @csrf<input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <button class="fav-lg {{ $isFavorite ? 'on' : '' }}" aria-label="Favori"><svg viewBox="0 0 24 24" fill="{{ $isFavorite ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7.5-4.9-9.7-9.3C.9 8.5 2.3 5.5 5.3 5.5c1.9 0 3.1 1 3.9 2.2h.1c.8-1.2 2-2.2 3.9-2.2 3 0 4.4 3 3 6.2C19.5 16.1 12 21 12 21z"/></svg></button>
+                    </form>
                 </div>
-            @endif
-        </div>
 
-        <!-- Infos produit -->
-        <div>
-            <h1 class="text-4xl font-bold mb-4">{{ $product->name }}</h1>
-            <p class="text-gray-600 text-lg mb-4">{{ $product->short_description }}</p>
-
-            @if ($product->category)
-                <p class="text-sm text-gray-500 mb-6">
-                    <strong>Catégorie :</strong> {{ $product->category->name }}
-                </p>
-            @endif
-
-            <!-- Description complète -->
-            <div class="bg-gray-50 p-6 rounded-lg mb-6">
-                <h2 class="font-bold text-lg mb-2">Description</h2>
-                <p class="text-gray-700 leading-relaxed">
-                    {{ $product->description ?? '(pas de description disponible)' }}
-                </p>
-            </div>
-
-            <!-- Emplacement fourchette Rex (vide en M1) -->
-            <div class="bg-blue-50 p-6 rounded-lg mb-6 text-center">
-                <p class="text-gray-500 text-sm">Fourchette de récompense Rex</p>
-                <p class="text-gray-400 text-xs mt-2">(Disponible en M3)</p>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex gap-3">
-                @if ($isSelected)
-                    <form action="{{ route('pro.selection.remove') }}" method="POST" class="flex-1">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="w-full bg-red-500 text-white py-3 rounded-lg font-bold hover:bg-red-600">
-                            ✓ Retirer de ma sélection
-                        </button>
-                    </form>
-                @else
-                    <form action="{{ route('pro.selection.add') }}" method="POST" class="flex-1">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="w-full bg-green-500 text-white py-3 rounded-lg font-bold hover:bg-green-600">
-                            ➕ Ajouter à ma sélection
-                        </button>
-                    </form>
-                @endif
-
-                @if ($isFavorite)
-                    <form action="{{ route('pro.favorite.remove') }}" method="POST" class="flex-1">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="w-full bg-yellow-500 text-white py-3 rounded-lg font-bold hover:bg-yellow-600">
-                            ⭐ Retirer des favoris
-                        </button>
-                    </form>
-                @else
-                    <form action="{{ route('pro.favorite.add') }}" method="POST" class="flex-1">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="w-full bg-yellow-500 text-white py-3 rounded-lg font-bold hover:bg-yellow-600">
-                            ☆ Ajouter aux favoris
-                        </button>
-                    </form>
-                @endif
-            </div>
-
-            <!-- Lien de partage Origin du pro -->
-            <div class="mt-6 bg-white border rounded-lg p-4">
-                <h2 class="font-bold text-lg mb-2">📢 Partager ce produit à vos clients</h2>
-                <p class="text-gray-500 text-sm mb-3">Votre lien personnel — les ventes issues de ce lien vous seront attribuées.</p>
-                <div class="flex gap-2 mb-3">
-                    <input type="text" id="share-url" value="{{ $shareUrl }}" readonly
-                           class="flex-1 border rounded px-3 py-2 text-sm bg-gray-50">
-                    <button onclick="copyShareUrl()" class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600">Copier</button>
-                </div>
-                <div class="flex gap-2">
-                    <a href="https://wa.me/?text={{ urlencode('Découvrez ce produit : ' . $shareUrl) }}" target="_blank"
-                       class="flex-1 text-center bg-green-500 text-white py-2 rounded text-sm hover:bg-green-600">WhatsApp</a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}" target="_blank"
-                       class="flex-1 text-center bg-blue-700 text-white py-2 rounded text-sm hover:bg-blue-800">Facebook</a>
+                <div class="share">
+                    <div class="share-lbl">Partager à vos clients</div>
+                    <div class="link-row">
+                        <div class="link-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 15l6-6M8 12H6a3 3 0 0 1 0-6h2M16 12h2a3 3 0 0 1 0 6h-2"/></svg><span id="share-url">{{ $shareUrl }}</span></div>
+                        <button class="copy" onclick="copyShare()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>Copier</button>
+                    </div>
+                    <div class="share-btns">
+                        <a class="sb" target="_blank" href="https://wa.me/?text={{ urlencode('Découvrez ce produit : '.$shareUrl) }}"><svg class="wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-3.9-3.6-4-3.8-.9-1.2-.9-2.3.6-1.6.8-1.8.4-.3.6-.3h.5c.2 0 .4 0 .6.5s.7 1.8.8 1.9 0 .3 0 .5-.2.4-.4.6-.3.4-.1.7 1 1.6 2 2.1c.8.5 1.3.4 1.5.3s.7-.8.9-1.1.4-.2.6-.1 1.5.7 1.7.9.4.2.5.3 0 .6-.2 1.1z"/></svg>WhatsApp</a>
+                        <a class="sb" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}"><svg class="fb" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>Facebook</a>
+                    </div>
                 </div>
             </div>
-
-            <script>
-            function copyShareUrl() {
-                const input = document.getElementById('share-url');
-                input.select();
-                navigator.clipboard.writeText(input.value).then(() => alert('Lien copié !'));
-            }
-            </script>
         </div>
     </div>
 </div>
+<script>function copyShare(){const t=document.getElementById('share-url').textContent;navigator.clipboard.writeText(t).then(()=>alert('Lien copié !'));}</script>
 @endsection

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Auth\PlanipetsAuthController;
 use App\Http\Controllers\Pro\ProSelectionController;
 use App\Http\Controllers\Pro\ProCatalogController;
@@ -35,5 +37,19 @@ Route::prefix('pro')->middleware('pro.auth')->group(function () {
     Route::post('/packs/{pack}/items', [ProPackController::class, 'addItem'])->name('pro.packs.items.add');
     Route::post('/packs/{pack}/items/remove', [ProPackController::class, 'removeItem'])->name('pro.packs.items.remove');
     Route::delete('/packs/{pack}', [ProPackController::class, 'destroy'])->name('pro.packs.destroy');
+});
+
+Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('login');
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/', fn () => redirect()->route('admin.categories.index'))->name('admin.dashboard');
+    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('admin.categories.index');
+    Route::get('/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
+    Route::get('/categories/{category}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
 });
 

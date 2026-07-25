@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/shop.css">
     <style>
         .lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:16px 0 6px}
+        .hint{font-size:12px;color:var(--faint);margin-top:5px;line-height:1.45}
         select.field{cursor:pointer}
     </style>
 </head>

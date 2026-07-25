@@ -52,26 +52,63 @@
         <input class="field" type="url" name="external_checkout_url" value="{{ old('external_checkout_url', $product->external_checkout_url) }}" placeholder="https://...">
 
         <div style="margin-top:26px;padding-top:22px;border-top:1px solid var(--border)">
-            <div style="font-weight:800;font-size:16px;letter-spacing:-.01em">Economie du produit</div>
-            <p class="desc" style="margin:4px 0 14px">Sert au calcul de la recompense Rex. Laisse vide si le produit ne donne pas de recompense.</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                <div><label class="lbl" style="margin-top:0">Prix TTC normal (EUR)</label><input class="field" type="number" step="0.01" min="0" name="price_ttc" value="{{ old('price_ttc', $product->price_ttc) }}"></div>
-                <div><label class="lbl" style="margin-top:0">TVA (%)</label><input class="field" type="number" step="0.01" min="0" max="100" name="vat_percent" value="{{ old('vat_percent', $product->vat_percent) }}"></div>
-                <div><label class="lbl" style="margin-top:0">Cout d'achat HT (EUR)</label><input class="field" type="number" step="0.01" min="0" name="purchase_cost_ht" value="{{ old('purchase_cost_ht', $product->purchase_cost_ht) }}"></div>
-                <div><label class="lbl" style="margin-top:0">Couts variables HT (EUR)</label><input class="field" type="number" step="0.01" min="0" name="variable_costs_ht" value="{{ old('variable_costs_ht', $product->variable_costs_ht) }}"></div>
-                <div><label class="lbl" style="margin-top:0">Part Rex (%)</label><input class="field" type="number" step="0.01" min="0" max="100" name="rex_share_percent" value="{{ old('rex_share_percent', $product->rex_share_percent) }}"></div>
+            <div style="font-weight:800;font-size:16px;letter-spacing:-.01em">Économie du produit</div>
+            <p class="desc" style="margin:4px 0 6px">Ces chiffres servent à calculer combien le pro peut gagner. Laisse tout vide si ce produit ne donne aucune récompense.</p>
+            <div style="background:var(--tint);border-radius:10px;padding:12px 14px;margin:10px 0 16px;font-size:12.5px;color:var(--green-800);line-height:1.6">
+                <strong>Comment le calcul marche :</strong><br>
+                Prix HT = montant payé ÷ (1 + TVA). Marge = Prix HT − coût d'achat − coûts variables. Budget Rex = Marge × Part Rex. La récompense est tirée entre la <strong>borne basse</strong> et le plus petit de (borne haute, budget Rex). Si la marge est ≤ 0, aucune récompense n'est donnée.
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 12px">
+                <div>
+                    <label class="lbl" style="margin-top:0">Prix TTC normal (€)</label>
+                    <input class="field" type="number" step="0.01" min="0" name="price_ttc" value="{{ old('price_ttc', $product->price_ttc) }}">
+                    <div class="hint">Le prix de vente affiché, TVA comprise. Indicatif — le calcul réel se fait sur le montant vraiment payé.</div>
+                </div>
+                <div>
+                    <label class="lbl" style="margin-top:0">TVA (%)</label>
+                    <input class="field" type="number" step="0.01" min="0" max="100" name="vat_percent" value="{{ old('vat_percent', $product->vat_percent) }}">
+                    <div class="hint">Le taux de TVA du produit (ex. 20 pour 20 %). Sert à retrouver le prix hors taxes.</div>
+                </div>
+                <div>
+                    <label class="lbl" style="margin-top:0">Coût d'achat HT (€)</label>
+                    <input class="field" type="number" step="0.01" min="0" name="purchase_cost_ht" value="{{ old('purchase_cost_ht', $product->purchase_cost_ht) }}">
+                    <div class="hint">Ce que le produit te coûte à l'achat (hors taxes), payé au fournisseur.</div>
+                </div>
+                <div>
+                    <label class="lbl" style="margin-top:0">Coûts variables HT (€)</label>
+                    <input class="field" type="number" step="0.01" min="0" name="variable_costs_ht" value="{{ old('variable_costs_ht', $product->variable_costs_ht) }}">
+                    <div class="hint">Les autres frais par vente (livraison, emballage, commission…), hors taxes.</div>
+                </div>
+                <div>
+                    <label class="lbl" style="margin-top:0">Part Rex (%)</label>
+                    <input class="field" type="number" step="0.01" min="0" max="100" name="rex_share_percent" value="{{ old('rex_share_percent', $product->rex_share_percent) }}">
+                    <div class="hint">La part de ta marge que tu acceptes de reverser au pro (ex. 50 = la moitié de la marge disponible).</div>
+                </div>
                 <div></div>
-                <div><label class="lbl" style="margin-top:0">Borne basse (EUR)</label><input class="field" type="number" step="0.01" min="0" name="low_bound" value="{{ old('low_bound', $product->low_bound) }}"></div>
-                <div><label class="lbl" style="margin-top:0">Borne haute (EUR)</label><input class="field" type="number" step="0.01" min="0" name="high_bound" value="{{ old('high_bound', $product->high_bound) }}"></div>
+                <div>
+                    <label class="lbl" style="margin-top:0">Borne basse (€)</label>
+                    <input class="field" type="number" step="0.01" min="0" name="low_bound" value="{{ old('low_bound', $product->low_bound) }}">
+                    <div class="hint">Le minimum qu'un pro peut recevoir sur ce produit. La récompense ne descend jamais en dessous.</div>
+                </div>
+                <div>
+                    <label class="lbl" style="margin-top:0">Borne haute (€)</label>
+                    <input class="field" type="number" step="0.01" min="0" name="high_bound" value="{{ old('high_bound', $product->high_bound) }}">
+                    <div class="hint">Le maximum autorisé. La récompense ne dépasse jamais (et reste plafonnée par le budget Rex réel).</div>
+                </div>
             </div>
         </div>
 
         <div style="margin-top:22px;padding-top:22px;border-top:1px solid var(--border)">
-            <div style="font-weight:800;font-size:16px">Tranches de recompense Rex</div>
-            <p class="desc" style="margin:4px 0 14px">3 tranches. La somme des probabilites doit faire <strong>100 %</strong>.</p>
+            <div style="font-weight:800;font-size:16px">Tranches de récompense Rex</div>
+            <p class="desc" style="margin:4px 0 6px">Les 3 tranches créent la « surprise » : selon la chance, le pro touche une petite, une moyenne ou une grosse récompense.</p>
+            <div style="background:var(--tint);border-radius:10px;padding:12px 14px;margin:10px 0 14px;font-size:12.5px;color:var(--green-800);line-height:1.6">
+                <strong>Comment lire les tranches :</strong><br>
+                La fourchette de récompense (entre borne basse et borne haute effective) est découpée en 3 zones exprimées en %. <strong>0 %</strong> = borne basse, <strong>100 %</strong> = borne haute. Ex. tranche 1 (0→40 %) = le bas de la fourchette ; tranche 3 (70→100 %) = le haut. La <strong>probabilité</strong> = la chance que cette tranche soit tirée. Les 3 doivent totaliser <strong>100 %</strong>.
+            </div>
+            <p class="desc" style="margin-bottom:12px"><strong>Exemple</strong> avec 50 / 35 / 15 : 1 fois sur 2 le pro touche le bas de la fourchette, 35 % du temps le milieu, 15 % le haut.</p>
             <table style="width:100%;border-collapse:collapse">
                 <thead><tr style="text-align:left;color:var(--muted);font-size:12px">
-                    <th style="padding:6px 8px">Tranche</th><th style="padding:6px 8px">Debut (%)</th><th style="padding:6px 8px">Fin (%)</th><th style="padding:6px 8px">Probabilite (%)</th>
+                    <th style="padding:6px 8px">Tranche</th><th style="padding:6px 8px">Début (%)</th><th style="padding:6px 8px">Fin (%)</th><th style="padding:6px 8px">Probabilité (%)</th>
                 </tr></thead>
                 <tbody>
                 @foreach ([1, 2, 3] as $n)

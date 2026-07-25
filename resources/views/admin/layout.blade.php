@@ -19,7 +19,7 @@
             <a href="{{ route('admin.categories.index') }}" class="brand"><span class="mark">S</span>shop . admin</a>
             <div class="nav-links">
                 <a href="{{ route('admin.categories.index') }}">Categories</a>
-                <span style="opacity:.45">Produits (bientot)</span>
+                <a href="{{ route('admin.products.index') }}">Produits</a>
                 <form action="{{ route('admin.logout') }}" method="POST" style="display:inline">@csrf<button type="submit" class="linkbtn">Deconnexion</button></form>
             </div>
         </div>

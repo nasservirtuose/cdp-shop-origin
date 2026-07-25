@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Auth\PlanipetsAuthController;
 use App\Http\Controllers\Pro\ProSelectionController;
 use App\Http\Controllers\Pro\ProCatalogController;
@@ -51,5 +52,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/categories/{category}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
+    Route::get('/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+    Route::post('/products', [AdminProductController::class, 'store'])->name('admin.products.store');
+    Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/products/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 });
 

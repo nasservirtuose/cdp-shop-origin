@@ -15,7 +15,13 @@
             <div class="grid">
                 @foreach ($selections as $s) @if ($s->product)
                     <article class="card">
-                        <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+                        <div class="thumb">
+                            @if ($s->product->main_image)
+                                <img src="{{ $s->product->main_image }}" alt="{{ $s->product->name }}" style="width:100%;height:100%;object-fit:cover">
+                            @else
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                            @endif
+                        </div>
                         <div class="cbody">
                             <div class="ctitle">{{ $s->product->name }}</div>
                             <p class="desc">{{ $s->product->short_description }}</p>
@@ -36,7 +42,13 @@
             <div class="grid">
                 @foreach ($favorites as $f) @if ($f->product)
                     <article class="card">
-                        <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+                        <div class="thumb">
+                            @if ($f->product->main_image)
+                                <img src="{{ $f->product->main_image }}" alt="{{ $f->product->name }}" style="width:100%;height:100%;object-fit:cover">
+                            @else
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                            @endif
+                        </div>
                         <div class="cbody">
                             <div class="ctitle">{{ $f->product->name }}</div>
                             <p class="desc">{{ $f->product->short_description }}</p>

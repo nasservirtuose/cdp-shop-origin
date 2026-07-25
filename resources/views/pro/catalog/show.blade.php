@@ -3,7 +3,11 @@
     <div class="detail">
         <div class="detail-grid">
             <div class="d-media">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                @if ($product->main_image)
+                    <img src="{{ $product->main_image }}" alt="{{ $product->name }}" style="width:100%;height:100%;object-fit:cover">
+                @else
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                @endif
             </div>
             <div class="d-body">
                 <a href="{{ route('pro.catalog.index') }}" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>Retour au catalogue</a>

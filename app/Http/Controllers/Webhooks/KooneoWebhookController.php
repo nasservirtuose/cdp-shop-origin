@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Webhooks;
 
 use App\Http\Controllers\Controller;
 use App\Models\KooneoWebhookEvent;
+use App\Services\Shop\KooneoEventProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -65,6 +66,12 @@ class KooneoWebhookController extends Controller
                 'received_at' => now(),
                 'processing_status' => 'received',
             ]);
+        }
+
+        try {
+            app(KooneoEventProcessor::class)->process($event);
+        } catch (\Throwable $e) {
+            report($e);
         }
 
         return response()->json([

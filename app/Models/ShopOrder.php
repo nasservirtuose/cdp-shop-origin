@@ -24,6 +24,11 @@ class ShopOrder extends Model
         'reward_amount',
         'reward_tier',
         'reward_draw_context',
+        'planipets_client_id',
+        'injection_status',
+        'injection_response',
+        'injected_at',
+        'cdp_reward_id',
     ];
 
     protected $casts = [
@@ -33,6 +38,10 @@ class ShopOrder extends Model
         'reward_amount' => 'decimal:2',
         'reward_tier' => 'integer',
         'reward_draw_context' => 'array',
+        'planipets_client_id' => 'integer',
+        'injection_response' => 'array',
+        'injected_at' => 'datetime',
+        'cdp_reward_id' => 'integer',
     ];
 
     protected static function booted(): void

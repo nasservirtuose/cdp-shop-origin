@@ -3,6 +3,8 @@
 namespace Tests\Feature\Webhooks;
 
 use App\Models\KooneoWebhookEvent;
+use App\Models\ShopProduct;
+use App\Models\ShopProductRewardTier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,6 +17,32 @@ class KooneoWebhookControllerTest extends TestCase
         parent::setUp();
 
         config(['services.kooneo.webhook_secret' => 'sekret']);
+
+        $product = ShopProduct::create([
+            'name' => 'Consult test',
+            'slug' => 'consult-test',
+            'external_reference' => 'CONSULT-01',
+            'commerce_mode' => 'DIRECT_SHOP',
+            'external_checkout_url' => 'https://example.test/pay',
+            'is_active' => true,
+            'is_public' => true,
+            'price_ttc' => 49,
+            'vat_percent' => 20,
+            'purchase_cost_ht' => 10,
+            'variable_costs_ht' => 5,
+            'rex_share_percent' => 30,
+            'low_bound' => 1,
+            'high_bound' => 5,
+        ]);
+
+        ShopProductRewardTier::create([
+            'product_id' => $product->id,
+            'tier_number' => 1,
+            'range_start_percentage' => 0,
+            'range_end_percentage' => 100,
+            'probability_percentage' => 100,
+            'is_active' => true,
+        ]);
     }
 
     private function payload(array $overrides = []): array
@@ -76,7 +104,7 @@ class KooneoWebhookControllerTest extends TestCase
             'event_type' => 'new_payment',
             'kooneo_transaction_id' => 'ch_test_001',
             'kooneo_order_id' => '98211',
-            'processing_status' => 'received',
+            'processing_status' => 'processed',
         ]);
     }
 

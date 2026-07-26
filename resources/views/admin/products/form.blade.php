@@ -52,9 +52,9 @@
         <input class="field" type="url" name="external_checkout_url" value="{{ old('external_checkout_url', $product->external_checkout_url) }}" placeholder="https://...">
 
         <div style="margin-top:26px;padding-top:22px;border-top:1px solid var(--border)">
-            <div style="font-weight:800;font-size:16px;letter-spacing:-.01em">Économie du produit</div>
+            <div style="font-weight:800;font-size:18px;letter-spacing:-.01em">Économie du produit</div>
             <p class="desc" style="margin:4px 0 6px">Ces chiffres servent à calculer combien le pro peut gagner. Laisse tout vide si ce produit ne donne aucune récompense.</p>
-            <div style="background:var(--tint);border-radius:10px;padding:12px 14px;margin:10px 0 16px;font-size:12.5px;color:var(--green-800);line-height:1.6">
+            <div style="background:var(--tint);border-radius:10px;padding:12px 14px;margin:10px 0 16px;font-size:14.5px;color:var(--green-800);line-height:1.6">
                 <strong>Comment le calcul marche :</strong><br>
                 Prix HT = montant payé ÷ (1 + TVA). Marge = Prix HT − coût d'achat − coûts variables. Budget Rex = Marge × Part Rex. La récompense est tirée entre la <strong>borne basse</strong> et le plus petit de (borne haute, budget Rex). Si la marge est ≤ 0, aucune récompense n'est donnée.
             </div>
@@ -99,9 +99,9 @@
         </div>
 
         <div style="margin-top:22px;padding-top:22px;border-top:1px solid var(--border)">
-            <div style="font-weight:800;font-size:16px">Tranches de récompense Rex</div>
+            <div style="font-weight:800;font-size:18px">Tranches de récompense Rex</div>
             <p class="desc" style="margin:4px 0 6px">Les 3 tranches créent la « surprise » : selon la chance, le pro touche une petite, une moyenne ou une grosse récompense.</p>
-            <div style="background:var(--tint);border-radius:10px;padding:12px 14px;margin:10px 0 14px;font-size:12.5px;color:var(--green-800);line-height:1.6">
+            <div style="background:var(--tint);border-radius:10px;padding:12px 14px;margin:10px 0 14px;font-size:14.5px;color:var(--green-800);line-height:1.6">
                 <strong>Comment lire les tranches :</strong><br>
                 La fourchette de récompense (entre borne basse et borne haute effective) est découpée en 3 zones exprimées en %. <strong>0 %</strong> = borne basse, <strong>100 %</strong> = borne haute. Ex. tranche 1 (0→40 %) = le bas de la fourchette ; tranche 3 (70→100 %) = le haut. La <strong>probabilité</strong> = la chance que cette tranche soit tirée. Les 3 doivent totaliser <strong>100 %</strong>.
             </div>

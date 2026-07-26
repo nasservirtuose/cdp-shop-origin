@@ -8,11 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shop.css">
-    <style>
-        .lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:16px 0 6px}
-        .hint{font-size:12px;color:var(--faint);margin-top:5px;line-height:1.45}
-        select.field{cursor:pointer}
-    </style>
+    <style>        .lbl{display:block;font-size:15px;font-weight:600;color:var(--ink);margin:16px 0 6px}        .hint{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.55}        .desc{font-size:15px;line-height:1.6}        .field{font-size:15.5px}        select.field{cursor:pointer}    </style>
 </head>
 <body>
     <nav class="nav" style="background:#08472A">

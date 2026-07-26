@@ -41,4 +41,8 @@ return [
         'public_url'    => env('PLANIPETS_PUBLIC_URL', 'https://planipets.com'),
     ],
 
+    'kooneo' => [
+        'webhook_secret' => env('KOONEO_WEBHOOK_SECRET'),
+    ],
+
 ];

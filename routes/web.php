@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Auth\PlanipetsAuthController;
+use App\Http\Controllers\KooneoWebhookController;
 use App\Http\Controllers\Pro\ProSelectionController;
 use App\Http\Controllers\Pro\ProCatalogController;
 use App\Http\Controllers\Pro\ProPackController;
@@ -17,6 +18,7 @@ Route::get('/', function () {
 Route::get('/auth/planipets', [PlanipetsAuthController::class, 'login'])
     ->middleware('throttle:10,1')->name('pro.sso');
 Route::get('/pro/login', [PlanipetsAuthController::class, 'showLoginPage'])->name('pro.login.page');
+Route::post('/webhooks/kooneo', [KooneoWebhookController::class, 'receive'])->name('webhooks.kooneo');
 
 Route::prefix('pro')->middleware('pro.auth')->group(function () {
     Route::post('/logout', [PlanipetsAuthController::class, 'logout'])->name('pro.logout');

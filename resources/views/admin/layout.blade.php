@@ -17,6 +17,7 @@
             <div class="nav-links">
                 <a href="{{ route('admin.categories.index') }}">Categories</a>
                 <a href="{{ route('admin.products.index') }}">Produits</a>
+                <a href="{{ route('admin.orders.index') }}">Commandes</a>
                 <form action="{{ route('admin.logout') }}" method="POST" style="display:inline">@csrf<button type="submit" class="linkbtn">Deconnexion</button></form>
             </div>
         </div>

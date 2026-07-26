@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class ShopOrder extends Model
@@ -41,5 +42,10 @@ class ShopOrder extends Model
                 $order->uuid = (string) Str::uuid();
             }
         });
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(ShopProduct::class, 'product_id');
     }
 }

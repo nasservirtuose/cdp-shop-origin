@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Auth\PlanipetsAuthController;
 use App\Http\Controllers\Pro\ProSelectionController;
@@ -58,5 +59,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
     Route::put('/products/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
+    Route::post('/orders/simulate', [AdminOrderController::class, 'simulate'])->name('admin.orders.simulate');
+    Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
 });
 

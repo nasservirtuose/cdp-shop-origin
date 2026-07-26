@@ -7,25 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class KooneoWebhookEvent extends Model
 {
     protected $fillable = [
-        'transaction_id',
-        'type',
-        'order_id',
-        'origin_tag',
-        'customer_email',
-        'product_reference',
-        'amount_cents',
-        'currency',
-        'is_test',
-        'payload',
+        'event_type',
+        'kooneo_transaction_id',
+        'kooneo_order_id',
+        'raw_payload',
         'received_at',
         'processed_at',
+        'processing_status',
+        'processing_error',
     ];
 
     protected $casts = [
-        'payload' => 'array',
-        'is_test' => 'boolean',
-        'amount_cents' => 'integer',
-        'order_id' => 'integer',
+        'raw_payload' => 'array',
         'received_at' => 'datetime',
         'processed_at' => 'datetime',
     ];

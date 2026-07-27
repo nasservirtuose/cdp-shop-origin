@@ -41,6 +41,12 @@ return [
         'public_url'    => env('PLANIPETS_PUBLIC_URL', 'https://planipets.com'),
     ],
 
+    'cdp' => [
+        'url' => env('CDP_URL', 'http://cp-origin.test'),
+        'injection_secret' => env('SHOP_INJECTION_SECRET'),
+        'timeout_seconds' => (int) env('CDP_TIMEOUT_SECONDS', 5),
+    ],
+
     'kooneo' => [
         'webhook_secret' => env('KOONEO_WEBHOOK_SECRET'),
     ],

@@ -23,6 +23,11 @@
         <label class="lbl">Slug <span style="font-weight:400;color:var(--faint)">(laisse vide pour auto)</span></label>
         <input class="field" type="text" name="slug" value="{{ old('slug', $product->slug) }}">
 
+        <label class="lbl">Reference externe (Kooneo)</label>
+        <input class="field" type="text" id="external_reference" name="external_reference" value="{{ old('external_reference', $product->external_reference ?? '') }}" required maxlength="100" placeholder="Ex: HARNAIS-001">
+        <div class="hint">Doit correspondre exactement a la reference du produit dans Kooneo pour que le webhook matche.</div>
+        @error('external_reference')<div class="flash flash-err">{{ $message }}</div>@enderror
+
         <label class="lbl">Categorie</label>
         <select class="field" name="category_id">
             <option value="">- Aucune -</option>

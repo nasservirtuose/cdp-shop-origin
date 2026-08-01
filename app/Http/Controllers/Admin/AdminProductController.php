@@ -8,6 +8,7 @@ use App\Models\ShopCategory;
 use App\Models\ShopProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AdminProductController extends Controller
@@ -67,6 +68,12 @@ class AdminProductController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
+            'external_reference' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('shop_products', 'external_reference')->ignore($ignoreId),
+            ],
             'category_id' => 'nullable|integer|exists:shop_categories,id',
             'short_description' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -95,6 +102,7 @@ class AdminProductController extends Controller
         return [
             'name' => $data['name'],
             'slug' => $slug,
+            'external_reference' => $data['external_reference'],
             'category_id' => $data['category_id'] ?? null,
             'short_description' => $data['short_description'] ?? null,
             'description' => $data['description'] ?? null,

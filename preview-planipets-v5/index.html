@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="Planipets aide les professionnels animaliers à trouver des clients, gagner du temps et mieux vendre leurs services.">
+  <meta name="theme-color" content="#fbfaf5">
+  <title>Planipets Pro — Des clients, du temps et des outils pour votre métier</title>
+  <link rel="preload" as="image" href="https://pro.planipets.com/wp-content/uploads/2026/06/education-et-comportement-canin.jpg">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Overpass:wght@600;700;800&display=swap');
+
+:root {
+  --ink: #143323;
+  --muted: #52655a;
+  --green: #26914a;
+  --green-dark: #0a6533;
+  --green-soft: #ecf5ec;
+  --cream: #fbfaf5;
+  --white: #fff;
+  --line: #dce7dc;
+  --shadow: 0 18px 50px rgba(24, 65, 40, .1);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; overflow-x: hidden; color: var(--ink); background: var(--cream); font-family: "Open Sans", sans-serif; font-size: 17px; line-height: 1.65; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+h1, h2, h3, p, figure { margin-top: 0; }
+h1, h2, h3 { font-family: Overpass, sans-serif; line-height: 1.12; letter-spacing: -.025em; }
+h1 { max-width: 760px; margin-bottom: 24px; font-size: clamp(2.65rem, 4.3vw, 4.35rem); }
+h2 { max-width: 850px; margin-bottom: 20px; font-size: clamp(2rem, 3.15vw, 3.15rem); }
+h3 { margin-bottom: 10px; font-size: clamp(1.3rem, 2vw, 1.65rem); }
+p { margin-bottom: 18px; }
+
+.container { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+.section-pad { padding: 104px 0; }
+.icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; z-index: 1000; top: 12px; left: 12px; padding: 10px 14px; color: white; background: var(--green-dark); border-radius: 8px; transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 3px solid #ef9d2f; outline-offset: 4px; }
+
+.site-header { position: sticky; z-index: 50; top: 0; background: rgba(251, 250, 245, .94); border-bottom: 1px solid transparent; backdrop-filter: blur(14px); transition: box-shadow .2s, border-color .2s; }
+.site-header.is-scrolled { border-color: var(--line); box-shadow: 0 5px 24px rgba(20, 51, 35, .07); }
+.header-inner { display: flex; min-height: 80px; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; font-family: Overpass, sans-serif; font-weight: 800; color: var(--green-dark); }
+.brand img { width: 54px; height: 54px; object-fit: contain; }
+.brand span { padding: 3px 7px; color: white; background: var(--green); border-radius: 6px; font-size: .73rem; letter-spacing: .06em; }
+.main-nav { display: flex; align-items: center; gap: 28px; font-family: Overpass, sans-serif; font-size: .94rem; font-weight: 700; }
+.main-nav > a:not(.button) { text-decoration: none; }
+.main-nav > a:not(.button):hover { color: var(--green-dark); }
+.menu-button { display: none; width: 44px; height: 44px; padding: 10px; background: transparent; border: 0; }
+.menu-button i { display: block; width: 24px; height: 2px; margin: 5px 0; background: var(--ink); transition: transform .2s, opacity .2s; }
+.menu-button[aria-expanded="true"] i:nth-of-type(1) { transform: translateY(7px) rotate(45deg); }
+.menu-button[aria-expanded="true"] i:nth-of-type(2) { opacity: 0; }
+.menu-button[aria-expanded="true"] i:nth-of-type(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.button { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 10px; padding: 13px 21px; color: white; background: var(--green-dark); border: 2px solid var(--green-dark); border-radius: 12px; font-family: Overpass, sans-serif; font-weight: 800; line-height: 1.2; text-decoration: none; box-shadow: 0 8px 24px rgba(10, 101, 51, .16); transition: transform .2s, background .2s; }
+.button:hover { background: #084f29; transform: translateY(-2px); }
+.button-secondary { color: var(--green-dark); background: transparent; box-shadow: none; }
+.button-secondary:hover { color: white; background: var(--green-dark); }
+.button-small { min-height: 42px; padding: 9px 15px; font-size: .9rem; }
+.button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.text-link { color: var(--green-dark); font-family: Overpass, sans-serif; font-weight: 800; text-decoration: underline; text-decoration-color: rgba(10, 101, 51, .3); text-underline-offset: 4px; }
+.text-link:hover { text-decoration-color: currentColor; }
+.eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 15px; color: var(--green-dark); font-family: Overpass, sans-serif; font-size: .78rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.eyebrow svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+
+.hero { padding: 64px 0 80px; background: radial-gradient(circle at 20% 10%, #fff 0, transparent 38%), var(--cream); }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .85fr; align-items: center; gap: clamp(48px, 7vw, 90px); }
+.hero-lead { margin-bottom: 9px; color: var(--green-dark); font-family: Overpass, sans-serif; font-size: clamp(1.35rem, 2.1vw, 1.8rem); font-weight: 800; }
+.hero-second { max-width: 650px; margin-bottom: 14px; font-size: 1.13rem; font-weight: 700; }
+.hero-detail { max-width: 630px; color: var(--muted); font-size: .96rem; }
+.hero-photo { position: relative; margin: 0; }
+.hero-photo::before { position: absolute; z-index: -1; content: ""; inset: 30px -22px -22px 25px; background: var(--green-soft); border-radius: 48% 52% 42% 58%; }
+.hero-photo img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 46% 54% 43% 57% / 42% 43% 57% 58%; box-shadow: var(--shadow); }
+.photo-credit figcaption { margin-top: 9px; color: #66766c; font-size: .68rem; line-height: 1.35; }
+
+.section-heading { margin-bottom: 48px; }
+.section-heading.centered { text-align: center; }
+.section-heading.centered .eyebrow { justify-content: center; }
+.section-heading.centered h2 { margin-inline: auto; }
+.missions { background: white; }
+.mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.mission-grid article { padding: 36px; background: var(--green-soft); border-radius: var(--radius); }
+.mission-grid article:nth-child(2) { background: #f6f1e7; }
+.mission-grid p { max-width: 490px; color: var(--muted); }
+.round-icon { display: grid; width: 50px; height: 50px; place-items: center; margin-bottom: 24px; color: var(--green-dark); background: white; border-radius: 50%; }
+.round-icon svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.proof-row { display: grid; grid-template-columns: 1fr 1fr .8fr; align-items: center; gap: 24px; margin-top: 22px; padding: 26px 30px; border: 1px solid var(--line); border-radius: 18px; }
+.proof-row p { margin: 0; }
+.proof-row strong, .proof-row span { display: block; }
+.proof-row strong { color: var(--green-dark); font-family: Overpass, sans-serif; font-size: 1.2rem; }
+.proof-row span, .proof-row small { color: var(--muted); font-size: .86rem; }
+.proof-row div { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.proof-row a { color: var(--green-dark); font-size: .86rem; font-weight: 700; }
+
+.solutions { background: var(--cream); }
+.lever-list { border-top: 1px solid #cfdacf; }
+.lever-list article { display: grid; grid-template-columns: 90px 1fr; gap: 24px; padding: 34px 8px; border-bottom: 1px solid #cfdacf; }
+.lever-list article > div { display: grid; grid-template-columns: minmax(210px, .55fr) 1fr; align-items: start; gap: 26px; }
+.lever-list h3, .lever-list p { margin: 0; }
+.lever-list p { color: var(--muted); }
+.lever-list small { grid-column: 2; width: fit-content; padding: 4px 10px; color: #6c5115; background: #fff2cf; border-radius: 99px; font-size: .75rem; font-weight: 700; }
+.lever-number { color: var(--green); font-family: Overpass, sans-serif; font-size: 1rem; font-weight: 800; }
+.section-link { margin-top: 30px; text-align: right; }
+
+.trades { background: var(--green-soft); }
+.trade-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.trade-card { display: grid; grid-template-columns: minmax(170px, 42%) 1fr; min-height: 210px; overflow: hidden; background: white; border-radius: 20px; box-shadow: 0 8px 28px rgba(32, 71, 45, .07); }
+.trade-card figure { position: relative; height: 100%; margin: 0; }
+.trade-card figure img { width: 100%; height: 100%; min-height: 210px; object-fit: cover; }
+.trade-card > div:last-child { align-self: center; padding: 26px; }
+.trade-card p { margin: 0; color: var(--muted); font-size: .94rem; }
+.trade-card-icon { grid-template-columns: minmax(170px, 42%) 1fr; }
+.animal-mark { display: grid; min-height: 210px; place-items: center; color: var(--green-dark); background: linear-gradient(145deg, #d8ead7, #f8f3e8); }
+.animal-mark svg { width: 90px; height: 90px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.35; }
+
+.product { background: white; }
+.product-intro { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 70px; }
+.check-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0; margin: 0 0 24px; list-style: none; }
+.check-list li { display: flex; align-items: center; gap: 9px; font-weight: 700; }
+.check-list svg { flex: 0 0 auto; width: 20px; height: 20px; fill: none; stroke: var(--green); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; }
+.product-shot { display: block; margin-top: 40px; padding: 12px; overflow: hidden; background: #e7eee8; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.product-shot img { display: block; width: 100%; height: auto; aspect-ratio: 2532 / 1452; object-fit: contain; border-radius: 14px; }
+.origin-panel { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 50px; margin-top: 38px; padding: 42px; background: var(--green-soft); border-radius: var(--radius); }
+.origin-panel h3 { max-width: 520px; font-size: clamp(1.65rem, 2.5vw, 2.35rem); }
+.origin-panel p { color: var(--muted); }
+.origin-shot { display: block; overflow: hidden; border: 8px solid white; border-radius: 15px; box-shadow: 0 10px 30px rgba(20, 51, 35, .12); }
+.origin-shot img { display: block; width: 100%; height: auto; aspect-ratio: 2502 / 1178; object-fit: contain; }
+
+.closing { background: #f5f0e5; }
+.closing-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: start; gap: 90px; }
+.closing-copy h2 { font-size: clamp(2rem, 3.2vw, 3rem); }
+.closing-copy > p:not(.eyebrow) { color: var(--muted); }
+.fine-print { font-size: .82rem; }
+.faq-list { border-top: 1px solid #cfc8b9; }
+.faq-list details { border-bottom: 1px solid #cfc8b9; }
+.faq-list summary { position: relative; padding: 24px 45px 24px 0; cursor: pointer; font-family: Overpass, sans-serif; font-size: 1.1rem; font-weight: 800; list-style: none; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { position: absolute; top: 21px; right: 5px; content: "+"; color: var(--green-dark); font-size: 1.6rem; font-weight: 400; }
+.faq-list details[open] summary::after { content: "−"; }
+.faq-list details p { max-width: 640px; padding-right: 35px; color: var(--muted); font-size: .94rem; }
+
+.site-footer { padding: 55px 0 24px; color: #d9eadf; background: #153425; }
+.site-footer .brand { color: white; }
+.site-footer .brand img { background: white; border-radius: 50%; }
+.site-footer p { margin: 12px 0 0; font-size: .86rem; }
+.footer-grid { display: flex; justify-content: space-between; gap: 40px; }
+.footer-grid nav { display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: 10px 36px; }
+.footer-grid nav a { color: white; font-size: .88rem; }
+.footer-bottom { display: flex; justify-content: space-between; margin-top: 45px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .16); font-size: .72rem; }
+
+@media (max-width: 900px) {
+  .section-pad { padding: 78px 0; }
+  .menu-button { display: block; }
+  .main-nav { position: absolute; top: 79px; right: 0; left: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 16px 24px 24px; background: var(--cream); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+  .main-nav.is-open { display: flex; }
+  .main-nav > a { padding: 13px 4px; }
+  .main-nav .button { margin-top: 8px; padding: 11px 16px; }
+  .hero-grid { grid-template-columns: 1fr 42%; gap: 36px; }
+  .hero-detail { font-size: .9rem; }
+  .proof-row { grid-template-columns: 1fr 1fr; }
+  .proof-row div { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
+  .trade-card { grid-template-columns: 1fr; }
+  .trade-card figure img, .animal-mark { min-height: 190px; height: 190px; }
+  .trade-card > div:last-child { padding: 22px; }
+  .product-intro, .origin-panel, .closing-grid { gap: 38px; }
+}
+
+@media (max-width: 700px) {
+  body { font-size: 16px; line-height: 1.58; }
+  .container { width: min(100% - 32px, 560px); }
+  .section-pad { padding: 66px 0; }
+  .header-inner { min-height: 72px; }
+  .brand img { width: 48px; height: 48px; }
+  .main-nav { top: 71px; }
+  h1 { font-size: clamp(2.25rem, 10.5vw, 2.62rem); }
+  h2 { font-size: clamp(1.85rem, 8vw, 2.25rem); }
+  .hero { padding: 46px 0 58px; }
+  .hero-grid { display: flex; flex-direction: column; gap: 32px; }
+  .hero-copy { display: contents; }
+  .hero-copy .eyebrow { order: 1; margin-bottom: -18px; }
+  .hero-copy h1 { order: 2; margin-bottom: -12px; }
+  .hero-lead { order: 3; margin-bottom: -25px; font-size: 1.35rem; }
+  .button-row { order: 4; width: 100%; margin: 0; }
+  .hero-photo { order: 5; width: 100%; margin-top: -22px; }
+  .hero-second { order: 6; margin: -10px 0 -20px; }
+  .hero-detail { order: 7; margin: -10px 0 0; }
+  .hero-photo::before { display: none; }
+  .hero-photo img { width: 100%; max-height: 330px; aspect-ratio: 4 / 3; object-position: center bottom; border-radius: 22px; }
+  .button-row .button { flex: 1 1 220px; }
+  .section-heading { margin-bottom: 34px; }
+  .mission-grid, .trade-grid, .product-intro, .origin-panel, .closing-grid { grid-template-columns: 1fr; }
+  .mission-grid article { padding: 28px; }
+  .proof-row { grid-template-columns: 1fr; gap: 18px; padding: 23px; }
+  .proof-row p + p { padding-top: 17px; border-top: 1px solid var(--line); }
+  .proof-row div { grid-column: auto; flex-direction: column; }
+  .lever-list article { grid-template-columns: 46px 1fr; gap: 10px; padding: 27px 0; }
+  .lever-list article > div { display: block; }
+  .lever-list p { margin-top: 8px; }
+  .lever-list small { display: inline-block; margin-top: 12px; }
+  .section-link { text-align: left; }
+  .trade-card { grid-template-columns: 42% 1fr; min-height: 165px; }
+  .trade-card figure img, .animal-mark { min-height: 165px; height: 100%; }
+  .trade-card > div:last-child { padding: 19px; }
+  .trade-card h3 { font-size: 1.15rem; }
+  .trade-card p { font-size: .82rem; }
+  .animal-mark svg { width: 65px; height: 65px; }
+  .product-intro { gap: 15px; }
+  .check-list { grid-template-columns: 1fr; gap: 11px; }
+  .product-shot { margin-top: 30px; padding: 6px; border-radius: 15px; }
+  .origin-panel { gap: 30px; padding: 28px 22px; }
+  .closing-grid { gap: 50px; }
+  .footer-grid { flex-direction: column; }
+  .footer-grid nav { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 390px) {
+  .container { width: calc(100% - 28px); }
+  h1 { font-size: 2.25rem; }
+  .button { width: 100%; }
+  .trade-card { grid-template-columns: 39% 1fr; }
+  .trade-card > div:last-child { padding: 15px; }
+  .trade-card p { font-size: .79rem; line-height: 1.45; }
+  .photo-credit figcaption { font-size: .58rem; }
+  .footer-grid nav { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+
+</style>
+  
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-people" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="5" ry="4"/><ellipse cx="5" cy="10" rx="2" ry="3"/><ellipse cx="10" cy="6" rx="2" ry="3"/><ellipse cx="19" cy="10" rx="2" ry="3"/><ellipse cx="15" cy="6" rx="2" ry="3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-horse" viewBox="0 0 24 24"><path d="M6 21v-5l2-3-1-5 4-5 2 3 4-1 2 4-3 4v8M7 8 3 6l1 6 4 1M12 10h.01"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Planipets Pro — accueil"><img src="https://pro.planipets.com/wp-content/uploads/2023/03/cropped-cropped-logo-planipets-trans.png" width="512" height="512" alt=""><span>PRO</span></a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav"><span class="sr-only">Ouvrir le menu</span><i></i><i></i><i></i></button>
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale"><a href="#solutions">Solutions</a><a href="#metiers">Votre métier</a><a href="#produit">Le logiciel</a><a href="https://app.planipets.com/">Connexion pro</a><a class="button button-small" href="https://pro.planipets.com/form-demo/">Demander une démo</a></nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><svg aria-hidden="true"><use href="#i-paw"></use></svg> Pour les professionnels animaliers</p>
+          <h1 id="hero-title">Votre métier, ce sont les animaux. Le nôtre, c'est de vous aider à en vivre.</h1>
+          <p class="hero-lead">Vous voulez des clients&nbsp;? On vous en amène.</p>
+          <p class="hero-second">Votre agenda déborde&nbsp;? Nous vous aidons à récupérer du temps et à créer d'autres revenus.</p>
+          <p class="hero-detail">Planipets partage déjà une partie de certains revenus avec des professionnels, tout en simplifiant leurs réservations et leurs paiements.</p>
+          <div class="button-row"><a class="button" href="https://pro.planipets.com/je-veux-des-clients/">Je veux des clients <span aria-hidden="true">→</span></a><a class="button button-secondary" href="#solutions">Découvrir les solutions</a></div>
+        </div>
+        <figure class="hero-photo photo-credit"><img src="https://pro.planipets.com/wp-content/uploads/2026/06/education-et-comportement-canin.jpg" width="750" height="750" alt="Une éducatrice canine et une propriétaire accompagnent un chien dans un parc"><figcaption>Photo publiée par <a href="https://pro.planipets.com/wp-content/uploads/2026/06/education-et-comportement-canin.jpg">Planipets</a></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="missions section-pad" id="missions" aria-labelledby="missions-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Deux besoins, une réponse claire</p><h2 id="missions-title">Plus de clients quand il en manque. Plus de temps quand l'agenda déborde.</h2></div>
+        <div class="mission-grid">
+          <article><span class="round-icon"><svg aria-hidden="true"><use href="#i-people"></use></svg></span><h3>J'ai besoin de clients</h3><p>Planipets travaille votre visibilité locale, les recommandations et la mise en relation sur demande.</p><a class="text-link" href="https://pro.planipets.com/je-veux-des-clients/">Découvrir l'apport de clients <span aria-hidden="true">→</span></a></article>
+          <article><span class="round-icon"><svg aria-hidden="true"><use href="#i-clock"></use></svg></span><h3>J'ai besoin de temps</h3><p>Automatisez l'agenda et développez progressivement ventes, programmes et commissions conditionnelles.</p><a class="text-link" href="#produit">Voir le logiciel <span aria-hidden="true">↓</span></a></article>
+        </div>
+        <div class="proof-row" aria-label="Résultats publiés par Planipets"><p><strong>20 nouveaux clients</strong><span>Cindy, toiletteuse — en 3 mois</span></p><p><strong>90&nbsp;€ de commission</strong><span>Léa, communication animale — en un mois</span></p><div><small>Résultats individuels, non garantis.</small><a href="https://pro.planipets.com/etude-de-cas/">Voir les études de cas →</a></div></div>
+      </div>
+    </section>
+
+    <section class="solutions section-pad" id="solutions" aria-labelledby="solutions-title">
+      <div class="container">
+        <div class="section-heading centered"><p class="eyebrow">Concret, dès aujourd'hui</p><h2 id="solutions-title">Trois façons concrètes de mieux vivre de votre activité.</h2></div>
+        <div class="lever-list">
+          <article><span class="lever-number">01</span><div><h3>Plus de clients.</h3><p>Mise en relation, visibilité et réservation directe d'une prestation depuis votre site.</p></div></article>
+          <article><span class="lever-number">02</span><div><h3>Des ventes plus simples.</h3><p>Liens de paiement, mensualités, Packs, produits et contenus numériques. Vous pouvez aussi proposer 90&nbsp;€ maintenant au lieu de 100&nbsp;€ plus tard.</p><small>Et bientôt&nbsp;: relances et offres complémentaires.</small></div></article>
+          <article><span class="lever-number">03</span><div><h3>Du temps et d'autres revenus.</h3><p>Automatismes, activités collectives selon disponibilité, commissions Origin et partage de revenus selon conditions.</p></div></article>
+        </div>
+        <div class="section-link"><a class="text-link" href="https://pro.planipets.com/nouveautes/">Voir toutes les fonctionnalités <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section class="trades section-pad" id="metiers" aria-labelledby="trades-title">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Pensé pour votre quotidien</p><h2 id="trades-title">Pet-sitter, toiletteur, éducateur, ostéopathe&nbsp;: Planipets s'adapte à votre métier.</h2></div>
+        <div class="trade-grid">
+          <article class="trade-card"><figure class="photo-credit"><img src="https://pro.planipets.com/wp-content/uploads/2023/03/d2fb8003-8ec2-4ce8-8d03-e75d2f6cc3fb.webp" width="698" height="466" loading="lazy" alt="Une femme souriante partage un moment complice avec un chien noir"></figure><div><h3>Pet-sitters</h3><p>Visites et gardes, promenades, suivi des animaux et Packs.</p></div></article>
+          <article class="trade-card"><figure class="photo-credit"><img src="https://pro.planipets.com/wp-content/uploads/brizy/imgs/toiletteur-salon-toilettage-hero-460x263x0x0x460x263x1778788396.webp" width="460" height="263" loading="lazy" alt="Une professionnelle toilette un petit chien blanc dans un salon"></figure><div><h3>Toiletteurs</h3><p>Agenda, paiements et vente de produits de salon.</p></div></article>
+          <article class="trade-card"><figure class="photo-credit"><img src="https://pro.planipets.com/wp-content/uploads/brizy/imgs/Carole-Nguyen-avec-deux-chiens-1110x1110x0x0x1110x642x1788779852.webp" width="600" height="347" loading="lazy" alt="Une professionnelle sourit aux côtés de deux chiens"></figure><div><h3>Éducateurs et comportementalistes</h3><p>Accompagnements, cours collectifs et guides PDF ou vidéo.</p></div></article>
+          <article class="trade-card trade-card-icon"><div class="animal-mark" aria-hidden="true"><svg><use href="#i-horse"></use></svg></div><div><h3>Ostéopathes animaliers</h3><p>Consultations, déplacements, suivi des animaux et facturation.</p></div></article>
+        </div>
+        <div class="section-link"><a class="text-link" href="https://pro.planipets.com/nos-metiers/">Tous les métiers <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <section class="product section-pad" id="produit" aria-labelledby="product-title">
+      <div class="container">
+        <div class="product-intro"><div><p class="eyebrow">Votre activité, rassemblée</p><h2 id="product-title">Et bien sûr, tout votre quotidien est au même endroit.</h2></div><ul class="check-list"><li><svg aria-hidden="true"><use href="#i-check"></use></svg>Réservations et agendas</li><li><svg aria-hidden="true"><use href="#i-check"></use></svg>Clients et dossiers animaux</li><li><svg aria-hidden="true"><use href="#i-check"></use></svg>SMS, encaissements et facturation</li><li><svg aria-hidden="true"><use href="#i-check"></use></svg>Forfaits et visites</li></ul></div>
+        <a class="product-shot" href="https://pro.planipets.com/wp-content/uploads/2026/06/agenda-planipets-pro.png" aria-label="Ouvrir la capture officielle de l'agenda Planipets"><img src="https://pro.planipets.com/wp-content/uploads/2026/06/agenda-planipets-pro.png" width="2532" height="1452" loading="lazy" alt="Agenda hebdomadaire Planipets avec rendez-vous et créneaux colorés"></a>
+        <div class="origin-panel"><div><p class="eyebrow">Planipets Origin</p><h3>Une partie des revenus Planipets peut aussi vous revenir.</h3><p>Des recommandations éligibles et certains programmes peuvent générer une commission, selon leurs conditions. Aucun montant, régularité ou revenu passif n'est garanti.</p><a class="text-link" href="https://pro.planipets.com/etude-de-cas/">Voir des exemples réels <span aria-hidden="true">→</span></a></div><a class="origin-shot" href="https://pro.planipets.com/wp-content/uploads/2026/06/securisation-paiement-.png" aria-label="Ouvrir la capture officielle du portefeuille Origin"><img src="https://pro.planipets.com/wp-content/uploads/2026/06/securisation-paiement-.png" width="2502" height="1178" loading="lazy" alt="Portefeuille Origin Planipets avec solde, bonus et clients attribués"></a></div>
+      </div>
+    </section>
+
+    <section class="closing section-pad" id="faq" aria-labelledby="closing-title">
+      <div class="container closing-grid">
+        <div class="closing-copy"><p class="eyebrow">Voyez ce qui vous serait utile</p><h2 id="closing-title">Découvrez ce que Planipets peut changer pour votre activité.</h2><p>Vous utilisez déjà un logiciel&nbsp;? Gardez votre site et ses liens, voyons ensemble les fonctions à reprendre et les données à transférer si nécessaire.</p><p class="fine-print">La reprise des données dépend de votre situation et n'est pas automatique.</p><a class="button" href="https://pro.planipets.com/form-demo/">Demander une démo <span aria-hidden="true">→</span></a></div>
+        <div class="faq-list" aria-label="Questions fréquentes"><details><summary>Est-ce adapté à mon métier&nbsp;?</summary><p>Planipets accompagne plusieurs métiers animaliers. Une démonstration permet de vérifier les fonctions utiles à votre organisation.</p></details><details><summary>Dois-je accepter les réservations en ligne&nbsp;?</summary><p>Non. La réservation en ligne est facultative&nbsp;: vous gardez la main sur vos disponibilités et votre façon de travailler.</p></details><details><summary>Et si j'ai déjà un logiciel&nbsp;?</summary><p>Nous évaluons avec vous la transition et les données à reprendre. Leur transfert dépend des outils concernés et n'est pas garanti.</p></details></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="#top"><img src="https://pro.planipets.com/wp-content/uploads/2023/03/cropped-cropped-logo-planipets-trans.png" width="512" height="512" alt="Planipets"><span>PRO</span></a><p>Des outils concrets pour les professionnels animaliers.</p></div><nav aria-label="Navigation de pied de page"><a href="https://pro.planipets.com/nos-metiers/">Nos métiers</a><a href="https://pro.planipets.com/nouveautes/">Fonctionnalités</a><a href="https://pro.planipets.com/etude-de-cas/">Études de cas</a><a href="https://pro.planipets.com/form-demo/">Demander une démo</a></nav></div><div class="container footer-bottom"><span>Maquette V5 locale — aucune publication</span><span>© Planipets</span></div></footer>
+<script>
+const menuButton = document.querySelector('.menu-button');
+const navigation = document.querySelector('.main-nav');
+const header = document.querySelector('[data-header]');
+
+const setMenuState = open => {
+  menuButton?.setAttribute('aria-expanded', String(open));
+  navigation?.classList.toggle('is-open', open);
+  const label = menuButton?.querySelector('.sr-only');
+  if (label) label.textContent = open ? 'Fermer le menu' : 'Ouvrir le menu';
+};
+
+menuButton?.addEventListener('click', () => {
+  const open = menuButton.getAttribute('aria-expanded') === 'true';
+  setMenuState(!open);
+});
+
+navigation?.addEventListener('click', event => {
+  if (event.target.closest('a')) {
+    setMenuState(false);
+  }
+});
+
+const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 24);
+updateHeader();
+window.addEventListener('scroll', updateHeader, { passive: true });
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && navigation?.classList.contains('is-open')) {
+    setMenuState(false);
+    menuButton?.focus();
+  }
+});
+
+</script>
+</body>
+</html>
